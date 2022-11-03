@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regis system</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <iframe id="formframe" src="" frameborder="0"></iframe>
+</body>
+<script src="https://static.line-scdn.net/liff/edge/versions/2.15.0/sdk.js"></script>
+<script>
+    
+    getLocation()
+        var lat, lon
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    lat = position.coords.latitude
+                    lon = position.coords.longitude
+                });
+            }
+        }
+    
+  
+    async function runApp() {
+        await liff.getProfile().then(profile => {
+            
+            var lat
+            var lon
+            let userId = profile.userId;
+            let displayName = profile.displayName;
+            let pictureUrl = profile.pictureUrl;
+           
+            let url = "https://script.google.com/macros/s/AKfycbzsER1JER6l6DtZSPtdWmAAsdgAxKvCQ7WmsXfnXHpy9HJeEgjpOWXlf0Bz0UgJonPs/exec?userId=" + userId + "&displayName=" + displayName + "&pictureUrl=" + pictureUrl + "&lat=" + lat + "&lon" + lon;
+            document.getElementById("formframe").src = url;
+        }).catch(err => console.error(err));
+    }
+
+  async function main() {
+     await liff.init({ liffId: "1657612535-7BL0lrX1", withLoginOnExternalBrowser: true })
+     if (liff.isLoggenIn()) {
+       runApp()
+     }
+   }
+  main() 
+  
+  
+
+</script>
+
+</html>
